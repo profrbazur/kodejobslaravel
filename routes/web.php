@@ -16,34 +16,18 @@ use App\Http\Controllers\ListingController;
 |
 */
 
-
-
+//All Listings
 Route::get('/', function () {
-    return view('welcome');
+    return view('listings', [
+        'heading' => 'Latest Listings',
+        'listings' => Listing::all()
+
+    ]);
 });
 
-
-Route::get('/hello', function () {
-    return '<h1>Hello World</h1>';
-});
-
-
-Route::get('/hello', function () {
-    return response('<h1>Hello World</h1>');
-});
-
-
-Route::get('/hello', function () {
-    return response('<h1>Hello World</h1>', 404);
-});
-
-
-Route::get('/posts/{id}', function ($id) {
-    // dd($id);
-    return response('Post ' .  $id);
-})-> where('id', '[0-9]+');
-
-Route::get('/search', function(Request $request) {
-    // dd($request);
-    dd($request-> name . ' ' . $request->city);
+//Single Listing
+Route::get('/listings/{id}', function ($id) {
+    return view('listing', [
+        'listing' => Listing::find($id)
+    ]);
 });
